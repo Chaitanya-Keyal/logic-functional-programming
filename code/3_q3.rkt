@@ -78,3 +78,16 @@
      (postorder-list-acc (cadr tree)
                          (postorder-list-acc (caddr tree)
                                              (cons (car tree) acc)))]))
+
+;; (print-all-traversals tree) -> (display result)
+;; Prints three lines: the inorder list, the preorder list and the postorder
+;; list of tree, each followed by one newline.
+;; Uses inorder-list, preorder-list and postorder-list so the traversal
+;; orders are not duplicated here.
+(define (print-all-traversals tree)
+  (display (inorder-list tree))
+  (newline)
+  (display (preorder-list tree))
+  (newline)
+  (display (postorder-list tree))
+  (newline))
