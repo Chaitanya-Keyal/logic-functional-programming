@@ -37,3 +37,32 @@ expression(Numbers, bin(Op, LeftTree, RightTree), Value) :-
     expression(LeftNumbers, LeftTree, LeftValue),
     expression(RightNumbers, RightTree, RightValue),
     apply_op(Op, LeftValue, RightValue, Value).
+
+%! expression_string(+Tree, -String) is det.
+%
+%  String is the canonical text of the expression tree Tree, without
+%  spaces. Multiplication and division bind tighter than addition and
+%  subtraction, and operators are left-associative: a binary left
+%  operand is parenthesised only when its operator binds less tightly
+%  than the parent's, a binary right operand when it binds equally
+%  tightly or less tightly. A leaf is never parenthesised.
+expression_string(Number, String) :-
+    integer(Number),
+    number_string(Number, String).
+expression_string(bin(Op, Left, Right), String) :-
+    expression_string(Left, LeftText0),
+    expression_string(Right, RightText0),
+    (   Left = bin(LeftOp, _, _),
+        ( Op == '*' ; Op == '/' ),
+        ( LeftOp == '+' ; LeftOp == '-' )
+    ->  format(string(LeftText), '(~w)', [LeftText0])
+    ;   LeftText = LeftText0
+    ),
+    (   Right = bin(RightOp, _, _),
+        (   ( Op == '*' ; Op == '/' )
+        ;   ( RightOp == '+' ; RightOp == '-' )
+        )
+    ->  format(string(RightText), '(~w)', [RightText0])
+    ;   RightText = RightText0
+    ),
+    format(string(String), '~w~w~w', [LeftText, Op, RightText]).
