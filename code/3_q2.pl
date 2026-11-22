@@ -85,3 +85,11 @@ equation(List, Equation) :-
     expression_string(RightTree, RightText),
     string_concat(LeftText, "=", LeftTextEquals),
     string_concat(LeftTextEquals, RightText, Equation).
+
+%! generate_equation(+List, -Equation) is semidet.
+%
+%  Equation is one canonical string of a valid equation for List.
+%  The predicate commits to the first such equation and fails when
+%  List has no valid equation.
+generate_equation(List, Equation) :-
+    once(equation(List, Equation)).
