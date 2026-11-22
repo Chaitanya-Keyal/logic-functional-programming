@@ -1,3 +1,5 @@
+:- use_module(library(lists)).
+
 %! apply_op(?Op, +A, +B, -Value) is nondet.
 %
 %  Value is the integer result of applying the operator Op to the
