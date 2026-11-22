@@ -54,3 +54,27 @@
      (cons (car tree)
            (preorder-list-acc (cadr tree)
                               (preorder-list-acc (caddr tree) acc)))]))
+
+;; (postorder-list tree) -> list
+;; List of the values of the binary tree tree in postorder: left subtree,
+;; right subtree, node.
+;; Recursive reading: the postorder list of () is (); the postorder list of
+;; (value left right) is the postorder list of left, followed by the
+;; postorder list of right, followed by value. An accumulator is used so that
+;; no append or reverse is needed.
+(define (postorder-list tree)
+  (postorder-list-acc tree '()))
+
+;; (postorder-list-acc tree acc) -> list
+;; The postorder list of tree followed by acc.
+;; Recursive reading: for () the result is acc; for (value left right), value
+;; is consed on to acc, then the right subtree's postorder list is placed in
+;; front of that, then the left subtree's postorder list is placed in front,
+;; so the result is left, right, value, acc. The left call is tail recursive.
+(define (postorder-list-acc tree acc)
+  (cond
+    [(null? tree) acc]
+    [else
+     (postorder-list-acc (cadr tree)
+                         (postorder-list-acc (caddr tree)
+                                             (cons (car tree) acc)))]))
