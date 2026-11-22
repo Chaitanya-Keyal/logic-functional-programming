@@ -58,7 +58,7 @@
         #:exists 'replace
         (lambda (out)
           (display solution-text out)
-          (unless (string-suffix? "\n" solution-text)
+          (unless (string-suffix? solution-text "\n")
             (newline out))
           (display appended out)))
       (run-racket-file temporary-file))

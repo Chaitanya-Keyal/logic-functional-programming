@@ -2,10 +2,7 @@
 :- use_module(library(lists)).
 :- use_module(library(process)).
 
-:- prolog_load_context(directory, TestDirectory),
-   directory_file_path(TestDirectory, '../code/3_q2.pl', SolutionFile),
-   assertz(solution_file(SolutionFile)),
-   ensure_loaded(SolutionFile).
+:- ensure_loaded('../code/3_q2').
 
 %  Leaves of an expression tree, from left to right.
 leaves(Number, [Number]) :-
@@ -315,7 +312,7 @@ test(eight_numbers) :-
 :- begin_tests(grader).
 
 test(loads_silently) :-
-    solution_file(SolutionFile),
+    once(source_file(user:apply_op(_, _, _, _), SolutionFile)),
     process_create(path(swipl),
                    ['-q', '-f', SolutionFile, '-g', 'true', '-t', 'halt'],
                    [ stdout(pipe(OutPipe)),
