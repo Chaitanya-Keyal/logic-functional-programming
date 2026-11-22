@@ -93,3 +93,12 @@ equation(List, Equation) :-
 %  List has no valid equation.
 generate_equation(List, Equation) :-
     once(equation(List, Equation)).
+
+%! all_equations(+List, -Equations) is det.
+%
+%  Equations is the list of all canonical strings of valid equations
+%  for List, without duplicates and in the standard order of terms.
+%  Equations is [] when List has no valid equation.
+all_equations(List, Equations) :-
+    findall(Equation, equation(List, Equation), AllEquations),
+    sort(AllEquations, Equations).
