@@ -4,6 +4,9 @@
   "permissions": [
     { "action": "shell", "resource": "git *", "effect": "deny" },
     { "action": "shell", "resource": "git status *", "effect": "allow" },
-    { "action": "shell", "resource": "git diff *", "effect": "allow" }
+    { "action": "shell", "resource": "git diff *", "effect": "allow" },
+    { "action": "skill", "resource": "*", "effect": "deny" },
+    { "action": "skill", "resource": "prolog-dev", "effect": "allow" },
+    { "action": "skill", "resource": "scheme-dev", "effect": "allow" }
   ]
 }
