@@ -85,3 +85,11 @@ main :-
     forall(member(p(Name, Dept, Lang, Project), Solution),
            format("~w = [~w, ~w, ~w]~n",
                   [Name, Dept, Lang, Project])).
+
+%! count_solutions(+Active, -N) is det.
+%
+%  N is the number of solutions that satisfy exactly the clues whose
+%  numbers occur in Active; clues whose numbers do not occur are ignored.
+count_solutions(Active, N) :-
+    findall(Solution, solve(Active, Solution), Solutions),
+    length(Solutions, N).
