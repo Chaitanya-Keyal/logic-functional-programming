@@ -23,3 +23,10 @@
      (inorder-list-acc (cadr tree)
                        (cons (car tree)
                              (inorder-list-acc (caddr tree) acc)))]))
+
+;; (print-inorder tree) -> (display result)
+;; Prints the inorder list of tree on one line, followed by one newline.
+;; Uses inorder-list so the traversal order is not duplicated here.
+(define (print-inorder tree)
+  (display (inorder-list tree))
+  (newline))
