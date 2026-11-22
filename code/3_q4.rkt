@@ -59,3 +59,26 @@
          [n (read)])
     (display (insert-if-short x lst n))
     (newline)))
+
+;; (make-inserter x len-ok?) -> (list -> list)
+;; Returns a function that copies a list, putting x at the front of every
+;; list, at every level of nesting, whose length satisfies the one-argument
+;; predicate len-ok?.  Lengths are measured on the original lists, before
+;; any insertion, and the top-level list is treated like every other list.
+;; An element is a list exactly when it is () or a pair; anything else is an
+;; atom and is kept as it is.
+;; Recursive reading: the returned inserter first maps itself over lst, with
+;; atoms unchanged, then conses x on when (len-ok? (my-length lst)) holds
+;; for the original lst.  my-map preserves the order.
+(define (make-inserter x len-ok?)
+  (define (inserter lst)
+    (let ([processed
+           (my-map (lambda (element)
+                     (if (or (null? element) (pair? element))
+                         (inserter element)
+                         element))
+                   lst)])
+      (if (len-ok? (my-length lst))
+          (cons x processed)
+          processed)))
+  inserter)
