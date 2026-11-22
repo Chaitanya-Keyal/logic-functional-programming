@@ -65,3 +65,13 @@ clue(7, Solution) :-
 clue(8, Solution) :-
     member(p(_, research, Lang, data), Solution),
     Lang \== javascript.
+
+%! solve(+Active, -Solution) is nondet.
+%
+%  Solution is a candidate from candidate/1 and every clue whose number
+%  is in the list Active holds in Solution. Clue numbers that are not in
+%  Active are ignored, and duplicate numbers in Active do not produce
+%  duplicate solutions.
+solve(Active, Solution) :-
+    candidate(Solution),
+    forall(member(Number, Active), clue(Number, Solution)).
