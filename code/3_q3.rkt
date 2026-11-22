@@ -121,3 +121,12 @@
       [else
        (walk (cadr node)
              (walk (caddr node) acc))])))
+
+;; (print-height-and-leaves tree) -> (display result)
+;; Prints one line containing the list (height leaf-count) of tree, followed
+;; by one newline.
+;; Uses tree-height and leaf-count so neither computation is duplicated here.
+(define (print-height-and-leaves tree)
+  (display (list (tree-height tree)
+                 (leaf-count tree)))
+  (newline))
