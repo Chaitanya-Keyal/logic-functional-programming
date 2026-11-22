@@ -66,3 +66,22 @@ expression_string(bin(Op, Left, Right), String) :-
     ;   RightText = RightText0
     ),
     format(string(String), '~w~w~w', [LeftText, Op, RightText]).
+
+%! equation(+List, -Equation) is nondet.
+%
+%  Equation is the canonical string L=R of an equation formed from the
+%  non-empty list List by splitting it into two non-empty consecutive
+%  parts, turning the left part into an expression L and the right
+%  part into an expression R, and requiring L and R to have the same
+%  integer value. Every number of List is used exactly once and in the
+%  given order.
+equation(List, Equation) :-
+    append(LeftNumbers, RightNumbers, List),
+    LeftNumbers = [_|_],
+    RightNumbers = [_|_],
+    expression(LeftNumbers, LeftTree, Value),
+    expression(RightNumbers, RightTree, Value),
+    expression_string(LeftTree, LeftText),
+    expression_string(RightTree, RightText),
+    string_concat(LeftText, "=", LeftTextEquals),
+    string_concat(LeftTextEquals, RightText, Equation).
