@@ -1,0 +1,15 @@
+# Racket compilation cache
+compiled/
+
+# Scratch files from test runs
+*.tmp
+/tmp/
+
+# Editors and OS
+*~
+\#*#
+.#*
+*.swp
+.DS_Store
+.vscode/
+.idea/
