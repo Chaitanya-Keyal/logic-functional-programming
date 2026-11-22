@@ -33,6 +33,9 @@
 ;; its original length even though it may gain x.  An element is a list
 ;; exactly when it is () or a pair; anything else is an atom and is kept as
 ;; it is.  () has length 0, so it becomes (x) whenever 0 < n.
+;; Recursive reading: the returned inserter maps itself over every list's
+;; elements first, with atoms unchanged, and then conses x on when the
+;; original length of that list is less than n.
 ;; This is the n-specific case of make-inserter: the predicate accepts a
 ;; length exactly when it is less than n, so the length is compared with n
 ;; once per list and all the nesting work happens in the returned inserter.
