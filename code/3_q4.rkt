@@ -47,3 +47,15 @@
     (if (< (my-length lst) n)
         (cons x processed)
         processed)))
+
+;; (print-insert-result) -> (display result)
+;; Reads x, then lst, then n from standard input, and prints
+;; (insert-if-short x lst n) on one line followed by one newline.  It prints
+;; no prompt or other text.  let* is used because the three reads must
+;; happen in order: x first, lst second, n third.
+(define (print-insert-result)
+  (let* ([x (read)]
+         [lst (read)]
+         [n (read)])
+    (display (insert-if-short x lst n))
+    (newline)))
