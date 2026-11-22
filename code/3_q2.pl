@@ -102,3 +102,11 @@ generate_equation(List, Equation) :-
 all_equations(List, Equations) :-
     findall(Equation, equation(List, Equation), AllEquations),
     sort(AllEquations, Equations).
+
+%! count_equations(+List, -N) is det.
+%
+%  N is the number of valid equations for List, that is, the length of
+%  the list that all_equations/2 returns for List.
+count_equations(List, N) :-
+    all_equations(List, Equations),
+    length(Equations, N).
