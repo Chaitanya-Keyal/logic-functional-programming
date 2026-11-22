@@ -75,3 +75,13 @@ clue(8, Solution) :-
 solve(Active, Solution) :-
     candidate(Solution),
     forall(member(Number, Active), clue(Number, Solution)).
+
+%! main is det.
+%
+%  Prints one solution satisfying clues 1 to 8, one line per friend in
+%  the order Alex, Ben, Carla, Dana.
+main :-
+    once(solve([1, 2, 3, 4, 5, 6, 7, 8], Solution)),
+    forall(member(p(Name, Dept, Lang, Project), Solution),
+           format("~w = [~w, ~w, ~w]~n",
+                  [Name, Dept, Lang, Project])).
