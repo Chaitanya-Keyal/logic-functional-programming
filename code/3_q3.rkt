@@ -104,3 +104,20 @@
     [else
      (+ 1 (max (tree-height (cadr tree))
                (tree-height (caddr tree))))]))
+
+;; (leaf-count tree) -> number
+;; Number of leaves in the binary tree tree. A leaf is a node whose left and
+;; right subtrees are both (); the empty tree has no leaves, and a node with
+;; exactly one empty subtree is not a leaf.
+;; Recursive reading: the accumulator holds the leaves counted so far; for ()
+;; the result is acc; for a leaf it is acc + 1; for any other node the left and
+;; right subtrees are counted with the same accumulator.
+(define (leaf-count tree)
+  (let walk ([node tree] [acc 0])
+    (cond
+      [(null? node) acc]
+      [(and (null? (cadr node)) (null? (caddr node)))
+       (+ acc 1)]
+      [else
+       (walk (cadr node)
+             (walk (caddr node) acc))])))
