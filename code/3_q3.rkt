@@ -30,3 +30,27 @@
 (define (print-inorder tree)
   (display (inorder-list tree))
   (newline))
+
+;; (preorder-list tree) -> list
+;; List of the values of the binary tree tree in preorder: node, left
+;; subtree, right subtree.
+;; Recursive reading: the preorder list of () is (); the preorder list of
+;; (value left right) is value, followed by the preorder list of left,
+;; followed by the preorder list of right. An accumulator is used so that no
+;; append is needed.
+(define (preorder-list tree)
+  (preorder-list-acc tree '()))
+
+;; (preorder-list-acc tree acc) -> list
+;; The preorder list of tree followed by acc.
+;; Recursive reading: for () the result is acc; for (value left right) the
+;; right subtree's preorder list is placed in front of acc, then the left
+;; subtree's preorder list is placed in front of that, then value is consed
+;; on, so the result is value, left, right, acc.
+(define (preorder-list-acc tree acc)
+  (cond
+    [(null? tree) acc]
+    [else
+     (cons (car tree)
+           (preorder-list-acc (cadr tree)
+                              (preorder-list-acc (caddr tree) acc)))]))
