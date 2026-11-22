@@ -91,3 +91,16 @@
   (newline)
   (display (postorder-list tree))
   (newline))
+
+;; (tree-height tree) -> number
+;; Height of the binary tree tree. The empty tree has height 0; a node has
+;; height 1 plus the larger of the heights of its two subtrees.
+;; Recursive reading: the height of () is 0; the height of (value left right)
+;; is 1 + the larger of the heights of left and right. A single node therefore
+;; has height 1.
+(define (tree-height tree)
+  (cond
+    [(null? tree) 0]
+    [else
+     (+ 1 (max (tree-height (cadr tree))
+               (tree-height (caddr tree))))]))
