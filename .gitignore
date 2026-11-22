@@ -13,3 +13,6 @@ compiled/
 .DS_Store
 .vscode/
 .idea/
+
+# make demo scratch files
+build/
